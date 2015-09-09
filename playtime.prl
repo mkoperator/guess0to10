@@ -1,0 +1,46 @@
+#! /usr/local/bin/perl
+system("clear");
+print "Welcome to Playtime! \n";
+
+if ($#ARGV)
+{
+    $maxnum = 10;
+}
+else
+{ 
+    $maxnum = $ARGV[0];
+    chomp $maxnum;
+}
+
+
+$compnum = `awk -vmin=1 -vmax=$maxnum 'BEGIN{srand(); print int(min+rand()*(max-min+1))}'`;
+chomp $compnum;
+print "Guess a number between 1 and $maxnum?\n";
+
+my $yournum =<STDIN>;
+chomp $yourname;
+
+if ($yournum > $maxnum) 
+{
+    print "Dude, you are not in the specified number range! \n";
+}
+
+if ($yournum == $compnum)
+{
+    print "You correctly guessed $compnum! Good job! \n";
+}
+else
+{
+    print "Sorry! The correct number is $compnum. \n";
+}
+
+print "\n";
+print "Thanks for playing! Do you want to play again? [y/N]\n";
+
+my $playagain =<STDIN>;
+chomp $playagain;
+
+if ($playagain eq "y" || $playagain eq "Y") 
+{
+ exec("playtime.prl", $maxnum);
+}
